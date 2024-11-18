@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  box-sizing: 0;
+} 
+
+ @font-face {
+  font-family: "Noto_Sans_Thai";
+  src: url("./assets/fonts/Noto_Sans_Thai/NotoSansThai-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}  
+
+:root {
+  --font-family: "Noto_Sans_Thai";
+}
+
+/* Override font-family for Thai language */
+html[lang="th"] {
+  --font-family: "Noto_Sans_Thai";
+}
+
+/* Apply font-family to various elements */
+* {
+  font-family: var(--font-family) !important;
+}
+
+button,
+html [type="button"], {
+  color: white;
+}
+
+
+ table > tbody > tr > td{
+   padding-block: 10px;
+}
+
+ .v-data-table-header__content > span{ 
+   color:#212121; 
+   font-weight: bold;
+   /* colo */
+ }  
