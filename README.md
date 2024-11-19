@@ -54,25 +54,46 @@
  `POST /api/v1/tasks`
    ```JSON
    {
-    "title":"Y1 top 23412",
-    "description": "description1"
-    }
-```
- 
-4. แก้ไขงาน 
- `PUT /api/v1/tasks/<id>`
+      "title":"task ex1",
+      "description":"desc demo"
+   }
 
+4. แก้ไขงาน
+ `PUT /api/v1/tasks/<id>`
+   ```JSON
+   {
+      "title":"task ex1 update",
+      "description":"desc demo update",
+      "status":"completed"
+   }
 
 5. ลบงาน
-`DELETE /api/v1/tasks/<id>/`
+`DELETE /api/v1/tasks/<id>`
 
-6. เข้าสู่ระบบ
+
+6. เข้าสู่ระบบ การเข้าสู่ระบบจะต้องใส่รหัส 2Fa Code ที่ได้รับจากเเอป Google Authentication twofactor สามารถนำเเอป Google Authentication twofactor ไปสเเกน QR Code เพื่อขอรหัสผ่านได้ที่ <http://localhost/auth/regis2Fa> โดยการกรอก username ที่ได้ลงทะเบียนไว้กับระบบเราไว้เเล้ว Task Management System
 `POST /api/v1/signIn`
+   ```JSON
+   { 
+      "username":"user1",
+      "password":"user1@123",
+      "otp_code": "971xxx"
+   }
+
 
 7. ลงทะเบียนผู้ใช้งานใหม่
-`POST /api/v1/signUp`: 
+`POST /api/v1/signUp`
+   ```JSON
+   {
+   "full_name":"user1",
+   "profile_image":"user1_profile_image.png",
+   "username":"user1",
+   "password":"password123xxx"
+   }
 
-## ข้อสังเกต
+<br/>
 
-- ตรวจสอบให้แน่ใจว่าได้ติดตั้ง lib modules ต่างๆครบถ้วยหรือไม่ก่อนรันโปรเจ็ก
-- สำหรับการใช้งานในโหมดโปรดักชั่นให้เปลี่ยนรหัสผ่านและการตั้งค่าความปลอดภัยต่าง ๆ
+## เพิ่มเติม
+
+1. การเข้าสู่ระบบ การเข้าสู่ระบบจะเพิ่มความปลอดภัยป้องกันการ Brute Force Attack Password  จึงกำหนดให้สามารถใส่รหัสผ่านผิดได้ไม่เกิน 5 ครั้ง ถ้าใส่รหัสผ่านผิดเกิน 5 ครั้ง ระบบจะ Lock Account นั้นไม่สามารถเข้าสู่ระบบได้ครั้งต่อไป เเต่ไม่รวมการใส่รหัส code ของ  2Fa code ที่ได้รับจาก Google Authentication twofactor ซึ่ง 2Fa code สามารถใส่ผิดได้หลายครั้ง เพราะรหัสค่อนข้าง reset เร็วจึงไม่ได้จำกัดในส่วนของ 2Fa code
+  

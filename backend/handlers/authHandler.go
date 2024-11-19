@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
+	"net/url"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -365,7 +367,7 @@ func SignIn2Fa(c *fiber.Ctx) error {
 
 // EnableTwoFactor เปิดใช้งาน 2FA สำหรับผู้ใช้
 func EnableTwoFactor(c *fiber.Ctx) error {
-	username := c.Params("username") // รับ username จาก params
+	username := c.Params("username")
 	db := database.DBConn
 
 	user := models.User{}
@@ -376,32 +378,52 @@ func EnableTwoFactor(c *fiber.Ctx) error {
 		return response
 	}
 
-	// สร้าง Secret Key สำหรับ TOTP
-	secret, err := totp.Generate(totp.GenerateOpts{
-		Issuer:      issuer2Fa,
-		AccountName: user.Username,
-	})
+	var qrURL string
 
-	if err != nil {
-		log.Print(err)
-		response := utils.ResponseError(c, fiber.StatusInternalServerError, "NOK", "Failed to generate 2FA secret.")
-		return response
+	// ตรวจสอบว่ามี Secret Key อยู่แล้วหรือไม่
+	if user.TwoFactorToken != "" && user.IsTwoFactorEnabled {
+		// ถ้ามี Secret Key อยู่แล้ว สร้าง URL สำหรับ QR Code โดยตรง
+		otp := &url.URL{
+			Scheme: "otpauth",
+			Host:   "totp",
+			Path:   fmt.Sprintf("/%s:%s", issuer2Fa, user.Username),
+		}
+
+		q := otp.Query()
+		q.Set("secret", user.TwoFactorToken)
+		q.Set("issuer", issuer2Fa)
+		otp.RawQuery = q.Encode()
+
+		qrURL = otp.String()
+	} else {
+		// ถ้ายังไม่มี Secret Key ให้สร้างใหม่
+		secret, err := totp.Generate(totp.GenerateOpts{
+			Issuer:      issuer2Fa,
+			AccountName: user.Username,
+		})
+		if err != nil {
+			log.Print(err)
+			response := utils.ResponseError(c, fiber.StatusInternalServerError, "NOK", "Failed to generate new 2FA secret.")
+			return response
+		}
+
+		// บันทึก Secret Key ใหม่
+		user.TwoFactorToken = secret.Secret()
+		qrURL = secret.URL()
 	}
 
-	// เก็บ Secret Key ไว้ในฟิลด์ TwoFactorToken และบันทึกในฐานข้อมูล
-	user.TwoFactorToken = secret.Secret()
+	// เปิดใช้งาน 2FA
 	user.IsTwoFactorEnabled = true
 	if err := db.Save(&user).Error; err != nil {
 		response := utils.ResponseError(c, fiber.StatusInternalServerError, "NOK", "Failed to enable 2FA.")
 		return response
 	}
 
-	// ส่ง QR Code ให้ผู้ใช้สแกน
 	result := fiber.Map{
 		"user_id":  user.ID,
 		"username": user.Username,
 		"message":  "2FA enabled. Scan this QR code with your authenticator app.",
-		"qr_url":   secret.URL(), // URL สำหรับให้สแกน QR ใน Google Authenticator
+		"qr_url":   qrURL,
 	}
 
 	response := utils.ResponseSuccess(c, result, fiber.StatusOK, "OK", "2FA enabled successfully.")
