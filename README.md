@@ -2,7 +2,7 @@
 
 ## Stack ที่ใช้ในการพัฒนา
 - `frontend`: Vue.js composition api
-- `backend/`: Go Fiber Framework
+- `backend`: Go Fiber Framework
 - `database`: Postgresql Gorm orm
 - `container` : Docker
 
@@ -20,16 +20,10 @@
     cd task-management
     ```
 
-3. รันคำสั่งต่อไปนี้ เพื่อ Build Docker:
+3. รันคำสั่งต่อไปนี้ เพื่อ run Build Docker:
 
    ```bash
    docker-compose up --build
-   ```
-
-4. ต่อมารันคำสั่งต่อไปนี้ เพื่อรัน Project:
-
-    ```bash
-   docker-compose up -d
    ```
 
 5. ตรวจสอบ Container ของ Docker เเต่ล่ะตัวว่า Run สำเร็จหรือไม่:
@@ -40,6 +34,16 @@
 
 - Backend API: <http://localhost:9090>
 - Frontend Application: <http://localhost>
+
+## Database Evirontment
+
+## Database Connection
+   Host = database
+   User = user1
+   Password = user1!12345678
+   Database Name = taskdb
+   Port = 5432
+   URL_CON = postgres://user1:user1!12345678@database:5432/taskdb
 
 
 ## API Endpoints
