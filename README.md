@@ -97,9 +97,7 @@
 
 1. การเข้าสู่ระบบ การเข้าสู่ระบบจะเพิ่มความปลอดภัยป้องกันการ Brute Force Attack Password  จึงกำหนดให้สามารถใส่รหัสผ่านผิดได้ไม่เกิน 5 ครั้ง ถ้าใส่รหัสผ่านผิดเกิน 5 ครั้ง ระบบจะ Lock Account นั้นไม่สามารถเข้าสู่ระบบได้ครั้งต่อไป เเต่ไม่รวมการใส่รหัส code ของ  2Fa code ที่ได้รับจาก Google Authentication twofactor ซึ่ง 2Fa code สามารถใส่ผิดได้หลายครั้ง เพราะรหัสค่อนข้าง reset เร็วจึงไม่ได้จำกัดในส่วนของ 2Fa code
 
-2. การเข้าสู่ระบบโดยใช้ 2Fa  ให้ผู้ใช้งานดาวน์โหลด App Google Authentication twofactor จากนั้นลงทะเบียนเข้าใช้งานเเอปให้เรียบร้อย จากนั้นไปที่ปุ่มเพิ่มเพิ่ม Qr Code จากนั้นนำไปสเเกน Qr Code ที่หน้า <http://localhost/auth/regis2Fa> จะได้ 2fa code มาเพื่อนำไปเข้าสู่ระบบ 
-
-[ดูวิธีการขอ 2fa code เพิ่มเติม](https://github.com/nathakritbc/task-management/blob/main/pdf/auth2fa.pdf)
+2. การเข้าสู่ระบบโดยใช้ 2Fa  ให้ผู้ใช้งานดาวน์โหลด App Google Authentication twofactor จากนั้นลงทะเบียนเข้าใช้งานเเอปให้เรียบร้อย จากนั้นไปที่ปุ่มเพิ่มเพิ่ม Qr Code จากนั้นนำไปสเเกน Qr Code ที่หน้า <http://localhost/auth/regis2Fa> จะได้ 2fa code มาเพื่อนำไปเข้าสู่ระบบ [ดูวิธีการขอ 2fa code เพิ่มเติม](https://github.com/nathakritbc/task-management/blob/main/pdf/auth2fa.pdf)
  
 
   
