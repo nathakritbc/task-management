@@ -99,7 +99,9 @@
 
 2. การเข้าสู่ระบบโดยใช้ 2Fa  ให้ผู้ใช้งานดาวน์โหลด App Google Authentication twofactor จากนั้นลงทะเบียนเข้าใช้งานเเอปให้เรียบร้อย จากนั้นไปที่ปุ่มเพิ่มเพิ่ม Qr Code จากนั้นนำไปสเเกน Qr Code ที่หน้า <http://localhost/auth/regis2Fa> จะได้ 2fa code มาเพื่อนำไปเข้าสู่ระบบ 
 
-<iframe src="https://github.com/nathakritbc/task-management/blob/main/pdf/auth2fa.pdf" width="640" height="480"></iframe>
+[View User Manual](https://github.com/yourusername/yourrepository/blob/main/path/to/yourfile.pdf)
+
+<iframe src="https://github.com/yourusername/yourrepository/blob/main/path/to/yourfile.pdf" width="640" height="480"></iframe>
 
 
   
