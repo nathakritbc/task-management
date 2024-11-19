@@ -4,13 +4,14 @@ services:
 
   frontend:
     build:
-      context: ./task-manager-vue
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: vue-frontend
     environment:
       - NODE_ENV=production
     volumes:
-      - ./task-manager-vue:/app
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
     networks:
@@ -23,19 +24,18 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./task-manager-vue/dist:/usr/share/nginx/html
+      - ./frontend/dist:/usr/share/nginx/html
     depends_on:
       - frontend
+      - backend
     networks:
       - app-network
 
   backend:
     image: golang:1.22.3-alpine
-    container_name: go-backend
-    working_dir: /app
-    volumes:
-      - ./task-management-backend-go:/app
-    command: sh -c "go mod tidy && go run main.go"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "9090:9090"
     environment:
