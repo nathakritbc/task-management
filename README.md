@@ -35,8 +35,6 @@
 - Backend API: <http://localhost:9090>
 - Frontend Application: <http://localhost>
 
-## Database Evirontment
-
 ## Database Connection
    Host = database
    User = user1
