@@ -1,39 +1,38 @@
 // Plugins
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import Fonts from 'unplugin-fonts/vite'
-import Layouts from 'vite-plugin-vue-layouts'
-import Vue from '@vitejs/plugin-vue'
-import VueRouter from 'unplugin-vue-router/vite'
-import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import Layouts from "vite-plugin-vue-layouts";
+import Vue from "@vitejs/plugin-vue";
+import VueRouter from "unplugin-vue-router/vite";
+import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 
 // Utilities
-import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from "vite";
+import { fileURLToPath, URL } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     VueRouter({
-      dts: 'src/typed-router.d.ts',
+      dts: "src/typed-router.d.ts",
     }),
     Layouts(),
     AutoImport({
       imports: [
-        'vue',
+        "vue",
         {
-          'vue-router/auto': ['useRoute', 'useRouter'],
-        }
+          "vue-router/auto": ["useRoute", "useRouter"],
+        },
       ],
-      dts: 'src/auto-imports.d.ts',
+      dts: "src/auto-imports.d.ts",
       eslintrc: {
         enabled: true,
       },
       vueTemplate: true,
     }),
     Components({
-      dts: 'src/components.d.ts',
+      dts: "src/components.d.ts",
       resolvers: [
         AntDesignVueResolver({
           importStyle: false, // css in js
@@ -47,38 +46,22 @@ export default defineConfig({
     Vuetify({
       autoImport: true,
       styles: {
-        configFile: 'src/styles/settings.scss',
-      },
-    }),
-    Fonts({
-      google: {
-        families: [{
-          name: 'Roboto',
-          styles: 'wght@100;300;400;500;700;900',
-        }],
+        configFile: "src/styles/settings.scss",
       },
     }),
   ],
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets'
+    outDir: "dist",
+    assetsDir: "assets",
   },
-  define: { 'process.env': {} },
+  define: { "process.env": {} },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
+    extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
   server: {
-    port: 3009,
+    port: 8080,
   },
-})
+});
