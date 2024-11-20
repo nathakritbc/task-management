@@ -33,9 +33,9 @@ services:
     environment:
       - DB_HOST=database
       - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=mydb
+      - DB_USER=user1
+      - DB_PASSWORD=user1!12345678
+      - DB_NAME=taskdb
     depends_on:
       - database
     networks:
